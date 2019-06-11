@@ -11,4 +11,4 @@ on them. The size and the damage of the fireball depends on the delay time (the 
 monster is spitting the smaller the fireball is - destroys only one student).
 Students who get a hit will run away (they don’t die)
 If all students get in, the game is over and player will get the feedback
-<img> pic.png </img>
+<img src="pic.png"></img>
