@@ -279,10 +279,11 @@ function draw() {
 
   // Kuvatakse leveli numbrit ja sissepääsenud tegelaste arvu
   if (!gameOver) {
-    textSize(32);
+    textSize(openWindowWidth / 60);
     text('Level ' + levelNumber, 10, 30);
-    textSize(32);
     text('Passed students ' + studentsPassedTotal + '/10', 10, 60);
+    text('Tallinn University Narva mnt 29, Room A543', openWindowWidth / 1.6, 50);
+    text('June 21, 10:00', openWindowWidth / 1.3, 80);
   }
 
 
