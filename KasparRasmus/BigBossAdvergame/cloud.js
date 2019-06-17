@@ -13,7 +13,7 @@ function Cloud (speed, rad, x, y, img) {
     this.move = function () {
       this.pos.x += this.speed;
       if(this.pos.x > openWindowWidth){
-        this.pos.x = 0 - 10*this.rad;
+        this.pos.x = 0 - 8*this.rad;
       }
     }
   }
