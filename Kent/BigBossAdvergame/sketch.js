@@ -4,7 +4,8 @@ let gameIsRunning = false;
 // piltide muutujad
 let animationData;
 let frames = [];
-let bg, studentImg, studentImg2, studentGirlImg, studentGirlImg2, monsterImg, fireBallImg, explosionImg, shootingPrepImg, boyBackImg, girlBackImg, startImg;
+let bg, studentImg, studentImg2, studentGirlImg, studentGirlImg2, monsterImg, fireBallImg, explosionImg,
+shootingPrepImg, boyBackImg, girlBackImg, startImg, cloudImg1, cloudImg2, cloudImg3, infoImg, nextLevelImg;
 let studentAnimation = [];
 let studentAnimation2 = [];
 let studentGirlAnimation = [];
@@ -46,6 +47,7 @@ let goInAnim;
 let goInFrameCountDown = 0;
 // level
 let studentsPassed = 0;
+let studentsPassedTotal = 0;
 let studentsEncountered = 0;
 let levelStudentCount = 10;
 let levelInfo = [];
@@ -55,9 +57,11 @@ let gameOver = false;
 let levelSpeed;
 let levelCutScene;
 let playCutScene = false;
+//Pilved
+let clouds = [];
 
 function preload() {
-  bg = loadImage('assets/hoone2.png');
+  bg = loadImage('assets/hoone_uuendus.png');
   monsterImg = loadImage('assets/monster.png');
   studentImg = loadImage('assets/studentboy.png');
   studentGirlImg = loadImage('assets/studentgirl.png');
@@ -69,7 +73,12 @@ function preload() {
   monsterImg = loadImage('assets/monster.png');
   boyBackImg = loadImage('assets/boyBack.png');
   girlBackImg = loadImage('assets/girlBack.png');
-  startImg = loadImage('assets/start.png');
+  startImg = loadImage('assets/start3.png');
+  cloudImg1 = loadImage('assets/pilv1.png');
+  cloudImg2 = loadImage('assets/pilv2.png');
+  cloudImg3 = loadImage('assets/pilv3.png');
+  infoImg = loadImage('assets/info.png');
+  nextLevelImg = loadImage('assets/nextLevel.png');
   animationData = loadJSON('animation.json');
 }
 
@@ -114,12 +123,28 @@ function setup() {
     girlBackAnimation.push(img);
   }
 
+  // Pilvede animatsioon
+  for (let i = 0; i < 3; i++){
+    if(i == 1){
+      clouds.push(new Cloud(1, openWindowWidth/35, openWindowWidth / 1.5, openWindowHeight / 20, cloudImg1));
+    } else if (i == 2){
+      clouds.push(new Cloud(1.3, openWindowWidth/35, openWindowWidth * 0.1, openWindowHeight / 60, cloudImg2));
+    } else {
+      clouds.push(new Cloud(1.5, openWindowWidth/35, openWindowWidth / 0.75, openWindowHeight / 20, cloudImg3));
+    }
+  }
+
   // GUI
   dmgGUI = new GUI(openWindowWidth / 20, openWindowHeight / 167);
 }
 
 function draw() {
   background(bg);
+  // Pilvede funktsioonide väljakutsumine
+  for(let i = 0; i < clouds.length; i++){
+    clouds[i].render();
+    clouds[i].move();
+  }
   // koletise funktsioonide v2lja kutsumine
   monster.move();
   monster.render();
@@ -149,19 +174,33 @@ function draw() {
       goInFrameCountDown = 27;
       students.splice(i, 1);
       studentsPassed ++;
+      studentsPassedTotal ++;
       studentsEncountered ++;
     } else if (students[i].pos.x < (openWindowWidth/2) && students[i].dir == 0 && !students[i].isRunning) {
       goInAnim = new GoIn(students[i].rad, openWindowWidth/2, openWindowHeight/1.5, students[i].isGirl);
       goInFrameCountDown = 27;
       students.splice(i, 1);
       studentsPassed ++;
+      studentsPassedTotal ++;
       studentsEncountered ++;
     } else if (students[i].pos.x > openWindowWidth+students[i].rad && students[i].dir == 1 && students[i].isRunning) {
-      students.splice(i, 1);
-      studentsEncountered ++;
+      if (levelNumber == 5) {
+        students[i].dir = 0;
+        students[i].isRunning = false;
+        students[i].speed = students[i].speed/2;
+      } else {
+        students.splice(i, 1);
+        studentsEncountered ++;
+      }
     } else if (students[i].pos.x < 0 && students[i].dir == 0 && students[i].isRunning) {
-      students.splice(i, 1);
-      studentsEncountered ++;
+      if (levelNumber == 5) {
+        students[i].dir = 1;
+        students[i].isRunning = false;
+        students[i].speed = students[i].speed/2;
+      } else {
+        students.splice(i, 1);
+        studentsEncountered ++;
+      }
     }
     if (i < students.length) {
       students[i].move();
@@ -174,7 +213,7 @@ function draw() {
     fireBalls[i].move();
     if (fireBalls[i].pos.y > openWindowHeight/1.2) {
       for (let j = 0; j < students.length; j++) {
-        if (abs(fireBalls[i].pos.x - (students[j].pos.x)) < fireBalls[i].dmgRad && !students[j].isRunning && levelNumber != 5) {
+        if (abs(fireBalls[i].pos.x - (students[j].pos.x)) < fireBalls[i].dmgRad && !students[j].isRunning) {
           students[j].dirChange();
           students[j].speed = students[j].speed * 2;
           students[j].isRunning = true;
@@ -201,100 +240,88 @@ function draw() {
     fireBallDmgRad += 2;
   }
 
-  // AI
-  /* if (students.length > 0) {
-    let index = 0;
-    if (students[index].isRunning && students.length > 1) {
-      index++;
-    }
-    if (students[index].isRunning && students.length > 2) {
-      index++;
-    }
-    if (students[index].isRunning && students.length > 3) {
-      index++;
-    }
-    if (students[index].isRunning && students.length > 4) {
-      index++;
-    }
-    if (students[index].isRunning && students.length > 5) {
-      index++;
-    }
-    if (monster.pos.x > students[index].pos.x) {
-      leftUp = false;
-      rightUp = true;
-    } else {
-      leftUp = true;
-      rightUp = false;
-    }
-  }
-  if (date > timeToShoot && students.length > 0) {
-    timeToShoot = date + delay;
-    spaceUp = false;
-    fireBalls.push(new FireBall(25, monster.rad, monster.pos.x, monster.pos.y + monster.rad/2, fireBallDmgRad));
-    fireBallDmgRad = 50;
-    spaceUp = true;
-  } else {
-    spaceUp = true;
-    fireBallDmgRad = 50;
-  }*/
   // GUI funktsioonid
-  dmgGUI.fillPercent = fireBallDmgRad / 3;
-  dmgGUI.pos.x = monster.pos.x;
-  dmgGUI.pos.y = monster.pos.y;
+  //dmgGUI.fillPercent = fireBallDmgRad / 3;
+  //dmgGUI.pos.x = monster.pos.x;
+  //dmgGUI.pos.y = monster.pos.y;
   dmgGUI.render();
 
   // cutscene
   if (playCutScene) {
-    levelCutScene.render("Level " + levelNumber.toString());
+    if (gameOver) {
+      levelCutScene.render("Game Over");
+    } else {
+      levelCutScene.render("Level " + levelNumber.toString());
+    }
   }
 
-  // Kuvatakse leveli numbrit
-  if (!gameOver) {
-    textSize(32);
-    text('Level ' + levelNumber, 10, 30);
+  // Kuvatakse leveli numbrit jms
+  textSize(openWindowWidth / 60);
+  text('Level ' + levelNumber, 10, 30);
+  text('Passed students ' + studentsPassedTotal + '/10', 10, 60);
+  text('Computer Games Final Presentation', openWindowWidth / 1.38, 30);
+  text('Tallinn University Narva mnt 29, Room A543', openWindowWidth / 1.495, 60);
+  text('June 21, 10:00', openWindowWidth / 1.13, 90);
+  image(infoImg, 10, 70, openWindowHeight/12, openWindowHeight/13);
+  // kontroll, kas hiir on info peal
+  if (mouseX > 10 && mouseX < 10 + openWindowHeight/12 && mouseY > 70 && mouseY < 70 + openWindowHeight/13) {
+    push();
+    textSize(openWindowWidth/80);
+    fill(200);
+    rect(10, openWindowHeight/6, openWindowWidth/1.25, openWindowHeight/15);
+    fill(0);
+    text('You are invited to the Tallinn University big boss fight. You are the Big Boss. Move your character with left and right arrows and ask \nquestions by pressing the space bar. Difficulty of the question depends how long you hold down the space bar. Be strict but fair and have fun!', 20, openWindowHeight/5.2);
+    pop();
   }
+
   // kontrollitakse, kas minna järgmisesse levelisse
-  if (studentsEncountered >= levelStudentCount && !gameOver){
+  if (studentsEncountered >= levelStudentCount && !gameOver && (levelStudentCount > studentsPassed)){
     nextLevel();
   }
-  if (levelNumber >= 6 || studentsEncountered == levelStudentCount) {
+  if (levelNumber >= 6 || studentsEncountered == levelStudentCount && !gameOver) {
     gameOver = true;
+    levelCutScene = new CutScene();
+    playCutScene = true;
   }
 }
 
 function keyReleased () {
-	if (keyCode == RIGHT_ARROW || keyCode == 68) {
-		rightUp = true;
-	} else if (keyCode == LEFT_ARROW || keyCode == 65) {
-		leftUp = true;
-	}
-  if (keyCode == 32 && !spaceUp) {
-    if (date > timeToShoot) {
-      timeToShoot = date + delay;
-      spaceUp = false;
-      fireBalls.push(new FireBall(windowHeight/50, (monster.rad/2)+(fireBallDmgRad/5), monster.pos.x, monster.pos.y + monster.rad/2, fireBallDmgRad));
-      fireBallDmgRad = 50;
-      spaceUp = true;
-    } else {
-      spaceUp = true;
-      fireBallDmgRad = 50;
-    }
-	}
+  if (gameIsRunning) {
+    if (keyCode == RIGHT_ARROW || keyCode == 68) {
+  		rightUp = true;
+  	} else if (keyCode == LEFT_ARROW || keyCode == 65) {
+  		leftUp = true;
+  	}
+    if (keyCode == 32 && !spaceUp) {
+      if (date > timeToShoot) {
+        timeToShoot = date + delay;
+        spaceUp = false;
+        fireBalls.push(new FireBall(windowHeight/50, (monster.rad/2)+(fireBallDmgRad/5), monster.pos.x, monster.pos.y + monster.rad/2, fireBallDmgRad));
+        fireBallDmgRad = 50;
+        spaceUp = true;
+      } else {
+        spaceUp = true;
+        fireBallDmgRad = 50;
+      }
+  	}
+  }
 }
 
 function keyPressed () {
-	if (keyCode == RIGHT_ARROW || keyCode == 68) {
-		rightUp = false;
-	} else if (keyCode == LEFT_ARROW || keyCode == 65) {
-		leftUp = false;
+  if (gameIsRunning) {
+    if (keyCode == RIGHT_ARROW || keyCode == 68) {
+  		rightUp = false;
+  	} else if (keyCode == LEFT_ARROW || keyCode == 65) {
+  		leftUp = false;
+    }
+    if (keyCode == 32) {
+      spaceUp = false;
+  	}
   }
-  if (keyCode == 32) {
-    spaceUp = false;
-	}
 }
 
 function mousePressed() {
-  if (!gameIsRunning) {
+  if (!gameIsRunning && mouseX > openWindowWidth/3.45 && mouseX < (openWindowWidth/3.45 + openWindowWidth/2.4) && mouseY > openWindowHeight/1.3 && mouseY < (openWindowHeight/1.3 + openWindowHeight/5)) {
     gameIsRunning = true;
   }
 }
