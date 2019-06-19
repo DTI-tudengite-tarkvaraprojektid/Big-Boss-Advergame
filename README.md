@@ -29,3 +29,5 @@ Mängu mängimiseks tuleb vajutada bännerile, mis avab mängu suuremas aknas. K
 
 
 ## Litsents
+
+https://github.com/rasmus127/Big-Boss-Advergame/blob/master/license.txt
