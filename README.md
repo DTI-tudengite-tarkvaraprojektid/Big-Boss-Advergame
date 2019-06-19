@@ -20,7 +20,7 @@ Big Boss Advergame on reklaammäng mis enne peale klikkimist näeb välja nagu l
 Photoshop CC 2015, Adobe Illustrator CC 2015,
 
 ## Meeskonna liikmed
-Kaspar Rasmus Eelmaa, Kent Pirma, Rando Talviste, Karl-Daniel tarkvaraarenduse
+Kaspar Rasmus Eelmaa, Kent Pirma, Rando Talviste, Karl-Daniel Karu
 
 ## Kasutusjuhend
 Mängu mängimiseks tuleb vajutada bännerile, mis avab mängu suuremas aknas. Kolli kontrollimiseks on vajalik klaviatuur.
