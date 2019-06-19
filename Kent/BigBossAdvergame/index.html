@@ -5,6 +5,9 @@
     <style> body{padding:0; margin:0;} </style>
     <!--<script language="javascript" type="text/javascript" src="/p5/addons/p5.dom.js"></script>-->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="sketch.js"></script>
     <script src="monster.js"></script>
     <script src="fireBall.js"></script>
@@ -30,8 +33,65 @@
       /*padding-top: 5vh;*/
 		}
 	</style>
-
   </head>
   <body>
+    <div id="chartId" class="chart-container" style="position: relative; height:50%; width:50%; display: none; position: absolute; border: solid 1px black;">
+      <canvas id="tagasiSide">
+        <script>
+        let chart;
+            let ctx = document.getElementById('tagasiSide').getContext('2d');
+            function drawChart () {
+              chart = new Chart(document.getElementById("tagasiSide"), {
+              type: 'bar',
+              data: {
+                labels: ["1", "2", "3", "4", "5"],
+                  datasets: [{
+                    label: "Ideal",
+                    type: "line",
+                      borderColor: "#000000",
+                    data: [1,2,4,2,1],
+                    fill: false
+                  }, {
+                    label: "You",
+                    type: "bar",
+                    backgroundColor: "rgba(255, 0, 0, 0.7)",
+                    data: [levelInfo[0], levelInfo[1], levelInfo[2], levelInfo[3], levelInfo[4]],
+                  }
+                ]
+              },
+              options: {
+                scales: {
+                  xAxes: [{
+                      scaleLabel: {
+                        display: true,
+                        labelString: 'Level'
+                      }
+                  }],
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true,
+                        callback: function(value, index, values) {
+                          if (Math.floor(value) === value) {
+                              return value;
+                          }
+                        }
+                      },
+                      scaleLabel: {
+                        display: true,
+                        labelString: 'Passed Students'
+                      }
+                    }]
+                  },
+                title: {
+                  display: true,
+                  text: 'Results'
+                },
+                  legend: { display: true, labels: {usePointStyle: true} }
+                }
+            });
+            }
+        </script>
+      </canvas>
+    </div>
   </body>
 </html>
