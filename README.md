@@ -23,7 +23,7 @@ Photoshop CC 2015, Adobe Illustrator CC 2015,
 Kaspar Rasmus Eelmaa, Kent Pirma, Rando Talviste, Karl-Daniel Karu
 
 ## Kasutusjuhend
-Mängu mängimiseks tuleb vajutada bännerile, mis avab mängu suuremas aknas. Kolli kontrollimiseks on vajalik klaviatuur.
+Mängu mängimiseks tuleb vajutada bännerile, mis avab mängu suuremas aknas. Kolli liikumise kontrollimine toimub nooleklahvidega ning tulekera tulistamine tühikuga.
 
 ## Paigaldusjuhend
 
