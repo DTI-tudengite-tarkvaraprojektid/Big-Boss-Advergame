@@ -11,7 +11,7 @@ Photoshop CC 2015, Adobe Illustrator CC 2015,
 
 ## Meeskonna liikmed
 Juhendaja: Martin Sillaots
-Kaspar Rasmus Eelmaa, Kent Pirma, Rando Talviste, Karl-Daniel Karu
+Grupi liikmed: Kaspar Rasmus Eelmaa, Kent Pirma, Rando Talviste, Karl-Daniel Karu
 
 ## Kasutusjuhend
 Mängu mängimiseks tuleb vajutada start nupule, millele vajutades mäng käivitub. Kolli liikumise kontrollimine toimub nooleklahvidega ning tulekera tulistamine tühikuga. Kui kõik üliõpilased on jõudnud kooli või on ära aetud, siis mäng saab läbi ning kuvatakse tagasiside.
