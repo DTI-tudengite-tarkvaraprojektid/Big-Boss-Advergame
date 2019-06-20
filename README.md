@@ -11,6 +11,7 @@ Photoshop CC 2015, Adobe Illustrator CC 2015,
 
 ## Meeskonna liikmed
 Juhendaja: Martin Sillaots
+<br>
 Grupi liikmed: Kaspar Rasmus Eelmaa, Kent Pirma, Rando Talviste, Karl-Daniel Karu
 
 ## Kasutusjuhend
