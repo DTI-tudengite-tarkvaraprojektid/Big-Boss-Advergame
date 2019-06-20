@@ -24,7 +24,7 @@ Mängu mängimiseks tuleb vajutada start nupule, millele vajutades mäng käivit
 <img src="ks.png"></img>
 
 ## Paigaldusjuhend
-Mängu paigaldamiseks tuleb võtta kaust VALMIS LÄHTEKOOD ning paigutada selle sisu domeenile. Mäng hakkab siis kohe tööle, sest pole vaja erinevad andmetabeleid.
+Mängu paigaldamiseks tuleb võtta kaust SOURCE CODE ning paigutada selle sisu domeenile. Mäng hakkab siis kohe tööle, sest pole vaja erinevad andmetabeleid. Et muuta kuvatavat teksti ürituse kohta, siis tuleb muuta faili nimega "eventData.json". Failis on neli erinevat elementi ning esimesed kolm kuvatakse avalehel (ürituse nimi, asukoht ning toimumisaeg) ning link(lehekülg, mida kuvatakse väiksena) on kuvatud kutsena cancel nuppu vajutades.
 
 
 ## Litsents
