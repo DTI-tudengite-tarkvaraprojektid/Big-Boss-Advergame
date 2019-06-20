@@ -65,10 +65,14 @@ let levelTimeToPlay = 0;
 let clouds = [];
 // text
 let tutorial = 'You are invited to the Tallinn University big boss fight. You are the Big Boss. Move your character with left and right arrows and ask \nquestions by pressing the space bar. Difficulty of the question depends how long you hold down the space bar. Be strict but fair and have fun!';
-let credits = 'Supervisor: Martin Sillaots. Project manager: Kaspar Rasmus Eelmaa. Design: Kaspar Rasmus Eelmaa, Karl-Daniel Karu. \nProgrammers: Rando Talviste, Kent Pirma.';
+let credits = 'Supervisor: Martin Sillaots Project manager: Kaspar Rasmus Eelmaa Design: Kaspar Rasmus Eelmaa, Karl-Daniel Karu \nProgrammers: Rando Talviste, Kent Pirma';
 let feedbackText;
+// info
+let eventData;
 // helid
 let shootSound, passedSound, fireSound, gameOverSound, monsterMoving, militarySound, kidsSound, studentSound;
+
+p5.disableFriendlyErrors = true;
 
 function preload() {
   bg = loadImage('assets/hoone_uuendus6.png');
@@ -94,6 +98,7 @@ function preload() {
   infoImg = loadImage('assets/info.png');
   nextLevelImg = loadImage('assets/nextLevel.png');
   animationData = loadJSON('animation.json');
+  eventData = loadJSON('eventData.json');
   // helide laadimine
   shootSound = loadSound('assets/sounds/monsterShoot.wav');
   passedSound = loadSound('assets/sounds/passed.wav');
@@ -198,19 +203,19 @@ function draw() {
     // alguse tekst ja nupp
     push();
     textSize(openWindowWidth/80);
-    fill(200);
+    fill(220);
     stroke(0);
     strokeWeight(openWindowHeight/300);
     rect(openWindowWidth/12.5, openWindowHeight/2.1, openWindowWidth/1.2, openWindowHeight/7);
     strokeWeight(0);
     fill(0);
-    if (mouseX < openWindowWidth/2.1 + openWindowWidth/20 && mouseX > openWindowWidth/2.1 && mouseY < openWindowHeight/1.07 + openWindowHeight/50 && mouseY > openWindowHeight/1.07) {
+    if (mouseX < openWindowWidth/2.4 + openWindowWidth/20 && mouseX > openWindowWidth/2.4 && mouseY < openWindowHeight/1.07 + openWindowHeight/50 && mouseY > openWindowHeight/1.07) {
       text(credits, openWindowWidth/9.5, openWindowHeight/1.85);
     } else {
       text(tutorial, openWindowWidth/9.5, openWindowHeight/1.85);
     }
     image(startImg, openWindowWidth/3.45, openWindowHeight/1.4, openWindowWidth/2.4, openWindowHeight/5);
-    text('CREDITS', openWindowWidth/2.1, openWindowHeight/1.05);
+    text('CREDITS | More info (GitHub)', openWindowWidth/2.4, openWindowHeight/1.05);
     pop();
   } else if (showFeedback) {
     // FeedBack
@@ -323,16 +328,21 @@ function draw() {
   fill(0);
   text('Level ' + levelNumber, openWindowWidth/192, openWindowHeight/30);
   text('Passed: ' + studentsPassedTotal + '/10', openWindowWidth/192, openWindowHeight/15);
-  text('Computer Games Final Presentation', openWindowWidth / 1.38, openWindowHeight/30);
-  text('Tallinn University Narva mnt 29, Room A543', openWindowWidth / 1.495, openWindowHeight/15);
-  text('June 21, 10:00', openWindowWidth / 1.13, openWindowHeight/10);
+  push();
+  textAlign(RIGHT);
+  text(eventData.event[0].name, 0, openWindowHeight/180, openWindowWidth, openWindowHeight);
+  textAlign(RIGHT);
+  text(eventData.event[0].location, 0, openWindowHeight/25, openWindowWidth, openWindowHeight);
+  textAlign(RIGHT);
+  text(eventData.event[0].time, 0, openWindowHeight/13.5, openWindowWidth, openWindowHeight);
+  pop();
   // kontroll, kas hiir on info peal
   if (gameIsRunning) {
     image(infoImg, openWindowWidth/192, openWindowHeight/13, openWindowHeight/15, openWindowHeight/15);
     if (mouseX > 10 && mouseX < 10 + openWindowHeight/12 && mouseY > 70 && mouseY < 70 + openWindowHeight/13) {
       push();
       textSize(openWindowWidth/80);
-      fill(200);
+      fill(220);
       rect(10, openWindowHeight/6, openWindowWidth/1.25, openWindowHeight/15);
       fill(0);
       text(tutorial, 20, openWindowHeight/5.2);
@@ -404,11 +414,50 @@ function mousePressed() {
     gameIsRunning = true;
   } else if (gameIsRunning && showFeedback && mouseX > openWindowWidth/3.5 && mouseX < (openWindowWidth/3.5 + openWindowWidth/5) && mouseY > openWindowHeight/1.15 && mouseY < (openWindowHeight/1.15 + openWindowHeight/10)) {
     // staatiline leht
-    let inv = window.open("/~kpirma/BigBossAdvergame/invitation.html", '_blank');
-    inv.focus();
+    inviteToEvent();
     resetGame(true);
   } else if (gameIsRunning && showFeedback && mouseX > openWindowWidth/1.95 && mouseX < (openWindowWidth/1.95 + openWindowWidth/5) && mouseY > openWindowHeight/1.15 && mouseY < (openWindowHeight/1.15 + openWindowHeight/10)) {
     resetGame(false);
+  } else if (!gameIsRunning && mouseX < openWindowWidth/2.1 + openWindowWidth/20 && mouseX > openWindowWidth/2.1 && mouseY < openWindowHeight/1.07 + openWindowHeight/50 && mouseY > openWindowHeight/1.07) {
+    let git = window.open("https://github.com/rasmus127/Big-Boss-Advergame", '_blank');
+    git.focus();
+  }
+  if (isMobile && gameIsRunning && !showFeedback) {
+    if (mouseX < openWindowWidth / 3) {
+      // liigu vasakule
+      leftUp = false;
+    } else if (mouseX > openWindowWidth / 1.5) {
+      // liigu paremale
+      rightUp = false;
+    } else {
+      // tulista
+      spaceUp = false;
+    }
+  }
+}
+
+function mouseReleased () {
+  if (isMobile && gameIsRunning && !showFeedback) {
+    if (mouseX < openWindowWidth / 3) {
+      // liigu vasakule
+      leftUp = true;
+    } else if (mouseX > openWindowWidth / 1.5) {
+      // liigu paremale
+      rightUp = true;
+    } else {
+      // tulista
+      if (date > timeToShoot) {
+        timeToShoot = date + delay;
+        spaceUp = false;
+        fireBalls.push(new FireBall(windowHeight/50, (monster.rad/1.6)+(fireBallDmgRad/5), monster.pos.x, monster.pos.y + monster.rad/2, fireBallDmgRad));
+        shootSound.play();
+        fireBallDmgRad = 50;
+        spaceUp = true;
+      } else {
+        spaceUp = true;
+        fireBallDmgRad = 50;
+      }
+    }
   }
 }
 
@@ -447,13 +496,13 @@ function nextLevel(){
   if (err < 2) {
     feedbackText = "Good Enough - you are invited to DLG big boss fight.";
   } else if (soft > strict) {
-    feedbackText = "You are too soft teacher - try again!";
+    feedbackText = "You are too soft evaluator - try again!";
   } else if (soft == 0 && strict == 0) {
-    feedbackText = "You are excellent teacher - you are invited to DLG big boss fight.";
+    feedbackText = "You are excellent evaluator - you are invited to DLG big boss fight.";
   } else if (soft < strict) {
-    feedbackText = "You are too strict teacher - try again! ";
+    feedbackText = "You are too strict evaluator - try again! ";
   } else {
-    feedbackText = "You are too strict teacher - try again! ";
+    feedbackText = "You are too strict evaluator - try again! ";
   }
 }*/
 
@@ -471,23 +520,29 @@ function calcFeedback2 () { // rasmuse versioon
     passed += levelInfo[i];
   }
   if (soft == 0 && strict == 0) {
-    feedbackText = "You are excellent teacher - you are invited to DLG big boss fight.";
+    feedbackText = "You are excellent evaluator - you are invited to DLG big boss fight.";
     gameOverSound.play();
-  } else if (soft < 1 && strict < 1) {
+  } else if (soft <= 1 && strict <= 1) {
     feedbackText = "Good Enough - you are invited to DLG big boss fight.";
     gameOverSound.play();
+  } else if (soft <= 2 && strict <= 2) {
+    feedbackText = "You are bipolar evaluator - try again! ";
+    militarySound.play();
   } else if (soft > strict) {
-    feedbackText = "You are too soft teacher - try again!";
+    feedbackText = "You are too soft evaluator - try again!";
     kidsSound.play();
   } else if (soft < strict) {
-    feedbackText = "You are too strict teacher - try again! ";
+    feedbackText = "You are too strict evaluator - try again! ";
     militarySound.play();
   } else if (soft == strict && levelInfo.length == 5) {
-    feedbackText = "You are too strict teacher - try again! ";
+    feedbackText = "You are too strict evaluator - try again! ";
     militarySound.play();
   } else if (soft == strict && levelInfo.length != 5) {
-    feedbackText = "You are too soft teacher - try again!";
+    feedbackText = "You are too soft evaluator - try again!";
     kidsSound.play();
+  } else {
+    feedbackText = "You are bipolar evaluator - try again! ";
+    militarySound.play();
   }
 }
 

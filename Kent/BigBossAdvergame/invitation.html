@@ -8,43 +8,100 @@
 </head>
 <style>
 
+    * {
+        font-family: 'Arial';
+    }
+
     body {
+        background-image: url('assets/tlu_ivar_veermae_copyright_002-kitsas.jpg');
+        background-size: cover;
+        height: 100%;
+        overflow: hidden;
 
     }
+
+    .logoArea {
+        background-color: rgba(255, 255, 255);
+        width: 110%;
+        height: 10vh;
+        margin-top: -2%;
+        margin-left: -2%;
+        padding-top: 50px;
+        position: fixed;
+    }
+
+    .logo{
+        position: fixed;
+        padding-left: 37.5%;
+        top: 3vh;
+        z-index: -1;
+        width: 50px;
+        height: 65.5px;
+    }
+
+    .logoText {
+      font-size: 24px;
+      padding-bottom: 2vh;
+      font-family: 'Times New Roman';
+      position: fixed;
+      padding-left: 45vw;
+      top: 3vh;
+      z-index: -1;
+      height: 65.5px;
+    }
+
+    .textArea {
+        background-color: rgba(255, 255, 255, 0.85);
+        width: 65%;
+        position: fixed;
+        left: 50%;
+        margin-left: -32.5%;
+        top: 35%;
+    }
+
     .p1 {
-        font-size: 24px;
+        font-size: 1.5vw;
         text-align: center;
+        line-height: 20%;
     }
 
     .p2 {
-        font-size: 48px;
+        font-size: 2vw;
         font-weight: bold;
         text-align: center;
+        line-height: 20%;
     }
-    img{
-        position: fixed;
-        padding-left: 4vw;
-        padding-top: 3vh;
-    }
+
 </style>
 <body>
-    <img src="assets/tluLogo.png" alt="tlu logo">
+    <header>
+        <div class="logoArea">
+            <img src="assets/logo.png" alt="tlu logo" class="logo">
+            <p class="logoText">TALLINN UNIVERSITY</p>
+        </div>
+    </header>
 
-    <p class="p1">You are invited to</p>
 
-    <p class="p2">Computer games final presentation</p>
+    <section class="textArea">
+        <p class="p1">You are invited to</p>
 
-    <p class="p1">Event takes place</p>
+        <p class="p2">Computer games final presentation</p>
 
-    <p class="p2">Tallinn University, Narva mnt 29, Room A543</p>
+        <p class="p1">Event takes place</p>
 
-    <p class="p1">on</p>
+        <p class="p2">Tallinn University, Narva mnt 29, Room A543</p>
 
-    <p class="p2">June 21, 10:00</p>
+        <p class="p1">on</p>
 
-    <p class="p2">You are the Big Boss!</p>
+        <p class="p2">June 21, 10:00</p>
 
-    <p class="p1">Come and ask questions and make suggestions</p>
+        <p class="p2" style="padding-top: 7.5vh;">You are the Big Boss!</p>
+
+        <p class="p1">Come and ask questions and make suggestions</p>
+
+    </section>
+
+
 
 </body>
 </html>
