@@ -73,6 +73,17 @@
     }
 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+    let eventData = $.getJSON( "eventData.json", function() {})
+    $( document ).ready(function() {
+        $("#eventName").text(eventData.responseJSON.event[0].name);
+        $("#eventLocation").text(eventData.responseJSON.event[0].location);
+        $("#eventDate").text(eventData.responseJSON.event[0].time);
+        $("#slogan1").text(eventData.responseJSON.event[0].slogan1);
+        $("#slogan2").text(eventData.responseJSON.event[0].slogan2);
+    });
+</script>
 <body>
     <header>
         <div class="logoArea">
@@ -85,19 +96,19 @@
     <section class="textArea">
         <p class="p1">You are invited to</p>
 
-        <p class="p2">Computer games final presentation</p>
+        <p id="eventName" class="p2"></p>
 
-        <p class="p1">Event takes place</p>
+        <p class="p1">The event takes place at</p>
 
-        <p class="p2">Tallinn University, Narva mnt 29, Room A543</p>
+        <p id="eventLocation" class="p2"></p>
 
         <p class="p1">on</p>
 
-        <p class="p2">June 21, 10:00</p>
+        <p id="eventDate" class="p2"></p>
 
-        <p class="p2" style="padding-top: 7.5vh;">You are the Big Boss!</p>
+        <p id="slogan1" class="p2" style="padding-top: 7.5vh;"></p>
 
-        <p class="p1">Come and ask questions and make suggestions</p>
+        <p id="slogan2" class="p1"></p>
 
     </section>
 
