@@ -17,6 +17,12 @@ Grupi liikmed: Kaspar Rasmus Eelmaa, Kent Pirma, Rando Talviste, Karl-Daniel Kar
 ## Kasutusjuhend
 Mängu mängimiseks tuleb vajutada start nupule, millele vajutades mäng käivitub. Kolli liikumise kontrollimine toimub nooleklahvidega ning tulekera tulistamine tühikuga. Kui kõik üliõpilased on jõudnud kooli või on ära aetud, siis mäng saab läbi ning kuvatakse tagasiside.
 
+<img src="es.jpg"></img>
+
+<img src="ts.jpg"></img>
+
+<img src="ks.jpg"></img>
+
 ## Paigaldusjuhend
 Mängu paigaldamiseks tuleb võtta lähtekood ning paigutada domeenile. Mäng hakkab siis kohe tööle, sest pole vaja erinevad andmetabeleid.
 
