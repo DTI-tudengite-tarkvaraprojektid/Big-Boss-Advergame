@@ -7,7 +7,14 @@ Mängu eesmärgiks on reklaamida erinevaid DLG üritusi. 10 õpilast proovivad s
 ## Õpime Tallinna Ülikoolis Digitehnoloogiate instituudis ning see projekt on tehtud tarkvaraarenduse praktika aine raames.
 
 ## Kasutatud tehnoloogiad
-Photoshop CC 2015, Adobe Illustrator CC 2015, Atom 1.38.2, Visual Studio Code 1.34.0, Putty 0.70, WinSCP 5.13.5, p5.js teek, chart.js teek
+HTML 5
+CSS 3
+JavaScript
+JSON
+p5.js 0.8.0
+p5.js 0.7.2
+chart.js 2.8.0
+JQuery 3.4.0
 
 ## Meeskonna liikmed
 Juhendaja: Martin Sillaots
