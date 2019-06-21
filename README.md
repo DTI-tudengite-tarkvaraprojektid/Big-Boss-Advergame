@@ -24,7 +24,7 @@ Juhendaja: Martin Sillaots
 Grupi liikmed: Kaspar Rasmus Eelmaa, Kent Pirma, Rando Talviste, Karl-Daniel Karu
 
 ## Kasutusjuhend
-Mängu mängimiseks tuleb vajutada start nupule, millele vajutades mäng käivitub. Et muuda ürituse teksti lehe üleval osas ning kutse saamise lehel, siis tuleb muuta infot failiss "eventData.json".  Kolli liikumise kontrollimine toimub nooleklahvidega ning tulekera tulistamine tühikuga. Kui kõik üliõpilased on jõudnud kooli või on ära aetud, siis mäng saab läbi ning kuvatakse tagasiside.
+Mängu mängimiseks tuleb vajutada start nupule, millele vajutades mäng käivitub. Et muuda ürituse teksti lehe üleval osas ning kutse saamise lehel, siis tuleb muuta infot failis "eventData.json".  Kolli liikumise kontrollimine toimub nooleklahvidega ning tulekera tulistamine tühikuga. Kui kõik üliõpilased on jõudnud kooli või on ära aetud, siis mäng saab läbi ning kuvatakse tagasiside.
 
 <img src="es.png"></img>
 
