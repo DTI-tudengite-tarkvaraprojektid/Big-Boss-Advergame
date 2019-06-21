@@ -7,14 +7,16 @@ Mängu eesmärgiks on reklaamida erinevaid DLG üritusi. 10 õpilast proovivad s
 ## Õpime Tallinna Ülikoolis Digitehnoloogiate instituudis ning see projekt on tehtud tarkvaraarenduse praktika aine raames.
 
 ## Kasutatud tehnoloogiad
-HTML 5
-CSS 3
-JavaScript
-JSON
-p5.js 0.8.0
-p5.js 0.7.2
-chart.js 2.8.0
-JQuery 3.4.0
+<ul>
+  <li>HTML 5</li>
+  <li>CSS 3</li>
+  <li>JavaScript</li>
+  <li>JSON</li>
+  <li>p5.js 0.8.0</li>
+  <li>p5.js 0.7.2</li>
+  <li>chart.js 2.8.0</li>
+  <li>JQuery 3.4.0</li>
+ </ul>
 
 ## Meeskonna liikmed
 Juhendaja: Martin Sillaots
